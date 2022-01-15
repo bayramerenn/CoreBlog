@@ -1,0 +1,223 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "BlogDetails";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<body>
+
+
+
+
+    <!--//banner-->
+    <section class="banner-bottom">
+        <!--/blog-->
+        <div class="container">
+            <div class="row">
+                <!--left-->
+                <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+                    <div class="blog-grid-top">
+                        <div class="b-grid-top">
+                            <div class="blog_info_left_grid">
+                                <a href="single.html">
+                                    <img src="~/web/images/b1.jpg" class="img-fluid" alt="">
+                                    @*<img src="~/web/images/b1.jpg" />*@
+                                </a>
+                            </div>
+                            <div class="blog-info-middle">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="far fa-calendar-alt"></i>  @(((DateTime) Model.BlogCreatedDate).ToString("dd-MMM-yyyy"))
+                                        </a>
+                                    </li>
+                                    <li class="mx-2">
+                                        <a href="#">
+                                            <i class="far fa-thumbs-up"></i> 0 Beğeni
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="far fa-comment"></i> 0 Yorum
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>
+                            @*<a href="single.html">@Model.BlogTitle</a>*@
+                        </h3>
+                        <p>
+                            @Model.BlogContent
+                        </p>
+                        <a href="/Blog/Index/" class="btn btn-primary read-m">Blog Listesi</a>
+                    </div>
+
+                    @*@await Html.PartialAsync("~/Views/Comment/CommentListByBlog.cshtml")*@
+                    @await Component.InvokeAsync("CommentListByBlog", new { id = Model.BlogID })
+                    @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
+
+                </div>
+
+                <!--//left-->
+                <!--right-->
+                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+                    <div class="right-blog-info text-left">
+                        <div class="tech-btm">
+                            <img src="~/web/images/banner1.jpg" class="img-fluid" alt="">
+                        </div>
+
+                      
+                        @await Component.InvokeAsync("CategoryList")
+                        @await Component.InvokeAsync("WriterLastBlog", new { writerId = Model.WriterID })
+                        <div class="single-gd my-5 tech-btm">
+                            <h4>Our Progress</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="single-gd tech-btm">
+                            <h4>Son Eklenen Post</h4>
+                            <div class="blog-grids">
+                                <div class="blog-grid-left">
+                                    <a href="single.html">
+                                        <img src="~/web/images/b1.jpg" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="blog-grid-right">
+
+                                    <h5>
+                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male</a>
+                                    </h5>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+                <!--//right-->
+            </div>
+        </div>
+    </section>
+    <input type="hidden" id="blogId" value="@Model.BlogID" />
+    @section Scripts {
+        
+        <script>
+            $('#btnSubmit').click(function (evt) {
+                evt.preventDefault();
+                var email = $('#txtMail').val()
+
+
+                if (email == '') {
+                    $('#txtMail').next().show();
+                    return false;
+                }
+
+                if (IsEmail(email) == false) {
+                    alert('formata uygun degıl')
+                    $('#txtMail').show();
+                    return false;
+                }
+
+                console.log(email);
+                $.ajax({
+                    type: "POST",
+                    url: "/NewsLetter/SubscribeMail",
+                    data: { "mail": email},
+                    success: function (response) {
+
+
+                        $('#txtMail').val('')
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+
+           function IsEmail(email) {
+               //var regex = /^([\w-\.]+\u0040([\w-]+\.)+[\w-]{2,4})?$/;
+               var regex = /^([a-zA-Z0-9_\.\-\+])+\u0040(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if(!regex.test(email)) {
+                       return false;
+                    }else{
+                       return true;
+                    }
+                  }
+
+        </script>
+     
+        <script>
+            $('#btnAddComment').click(function (e) {
+                e.preventDefault();
+
+                var formData = new FormData();
+
+                formData.append("commentUserName", $('#commentUserName').val())
+                formData.append("commentTitle", $('#commentTitle').val())
+                formData.append("commentContent", $('#commentContent').val())
+                formData.append("blogId", $('#blogId').val())
+                
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Comment/PartialAddComment",
+                    data: formData,
+                  
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+
+                        console.log('test');
+                        $('#commentUserName').val('')
+                        $('#commentTitle').val('')
+                        $('#commentContent').val('')
+
+                        swal("Teşekürler!", "Yorumunuz kayıt edildi", "success");
+                        
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert('Hata var');
+                    }
+                });
+            })
+        </script>
+        
+    }
+
+
+</body>
+
+</html>
+
