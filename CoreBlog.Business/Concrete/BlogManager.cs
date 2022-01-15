@@ -40,6 +40,11 @@ namespace CoreBlog.Business.Concrete
            return await _unitOfWork.Blog.GetByIdAsync(id);
         }
 
+        public async Task<IList<Blog>> GetLastBlogListAsync(int id)
+        {
+            return await _unitOfWork.Blog.GetLastBlogListAsync(id);
+        }
+
         public async Task<IEnumerable<Blog>> GetListAllAsync(Expression<Func<Blog, bool>> filter = null)
         {
             return await _unitOfWork.Blog.GetListAllAsync(filter);

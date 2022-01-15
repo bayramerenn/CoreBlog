@@ -12,5 +12,7 @@ namespace CoreBlog.DataAccess.Abstract
     {
         Task<IList<Blog>> GetBlogListWithCategory(Expression<Func<Blog, bool>> filter = null);
         Task<IList<Blog>> GetBlogListWithWriter(Expression<Func<Blog, bool>> filter = null);
+
+        Task<IList<Blog>> GetLastBlogListAsync(int id);
     }
 }

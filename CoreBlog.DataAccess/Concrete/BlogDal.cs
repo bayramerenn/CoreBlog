@@ -32,5 +32,10 @@ namespace CoreBlog.DataAccess.Concrete
                        await appDbContext.Blogs.Include(x => x.Writer).ToListAsync() :
                        await appDbContext.Blogs.Include(x => x.Writer).Where(filter).ToListAsync();
         }
+
+        public async Task<IList<Blog>> GetLastBlogListAsync(int id)
+        {
+            return await appDbContext.Blogs.OrderByDescending(o => o.BlogCreatedDate).Take(id).ToListAsync();
+        }
     }
 }
