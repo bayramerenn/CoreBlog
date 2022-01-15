@@ -1,11 +1,13 @@
 ﻿using CoreBlog.Business.Abstract;
 using CoreBlog.Entity.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace CoreBlog.UI.Controllers
 {
+    [AllowAnonymous]
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;

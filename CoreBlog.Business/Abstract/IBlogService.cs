@@ -14,6 +14,8 @@ namespace CoreBlog.Business.Abstract
         void Update(Blog blog);
         void Delete(Blog blog);
         Task<IEnumerable<Blog>> GetListAllAsync(Expression<Func<Blog, bool>> filter = null);
+
+
         Task<Blog> GetByIdAsync(int id);
         Task<IList<Blog>> GetBlogListWithCategory(Expression<Func<Blog, bool>> filter = null);
         Task<IList<Blog>> GetBlogListWithWriter(Expression<Func<Blog, bool>> filter = null);

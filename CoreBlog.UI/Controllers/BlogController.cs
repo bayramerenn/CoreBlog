@@ -1,10 +1,12 @@
 ﻿using CoreBlog.Business.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoreBlog.UI.Controllers
 {
+    [AllowAnonymous]
     public class BlogController : Controller
     {
         private readonly IBlogService _blogService;

@@ -1,9 +1,11 @@
 ﻿using CoreBlog.Business.Abstract;
 using CoreBlog.Entity.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreBlog.UI.Controllers
 {
+    [AllowAnonymous]
     public class NewsLetterController : Controller
     {
         private readonly INewLetterService _newLetterService;
