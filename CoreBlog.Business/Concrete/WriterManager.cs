@@ -19,10 +19,31 @@ namespace CoreBlog.Business.Concrete
             _unitOfWork = unitOfWork;
         }
 
+        public void Delete(Writer blog)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Writer> GetByIdAsync(int id)
+        {
+            return await _unitOfWork.Writer.GetByIdAsync(id);
+        }
+
+        public Task<IEnumerable<Writer>> GetListAllAsync(Expression<Func<Writer, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task InsertAsync(Writer writer)
         {
             await _unitOfWork.Writer.InsertAsync(writer);
             await _unitOfWork.CommitAsync();
+        }
+
+        public void Update(Writer blog)
+        {
+            _unitOfWork.Writer.Update(blog);
+            _unitOfWork.Commit();
         }
 
         public async Task<Writer> WhereAsync(Expression<Func<Writer, bool>> filter = null)

@@ -5,6 +5,7 @@ using CoreBlog.DataAccess.Abstract;
 using CoreBlog.DataAccess.Concrete;
 using CoreBlog.DataAccess.Context;
 using CoreBlog.DataAccess.UnitOfWork;
+using CoreBlog.UI.Helpers;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -59,6 +60,8 @@ namespace CoreBlog.UI
                 });
             });
 
+            services.AddHttpContextAccessor();
+
             //Unitofwork
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -72,9 +75,13 @@ namespace CoreBlog.UI
             services.AddScoped<IContactDal, ContactDal>();
             services.AddScoped<IWriterDal, WriterDal>();
             services.AddScoped<INewsLetterDal, NewsLetterDal>();
+            services.AddScoped<INotificationDal, NotificationDal>();
+            services.AddScoped<IMessageDal, MessageDal>();
+            services.AddScoped<IMessage2Dal, Message2Dal>();
 
 
             //Business
+            services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<IBlogService, BlogManager>();
             services.AddScoped<ICommentService, CommentManager>();
@@ -82,12 +89,21 @@ namespace CoreBlog.UI
             services.AddScoped<INewLetterService, NewsLetterManager>();
             services.AddScoped<IAboutService, AboutManager>();
             services.AddScoped<IContactService, ContactManager>();
+            services.AddScoped<INotificationService, NotificationManager>();
+            services.AddScoped<IMessageService, MessageManager>();
+            services.AddScoped<IMessage2Service, Message2Manager>();
+
+
+            services.AddScoped<IUserClaimHelpers, UserClaimHelpers>();
 
             services.AddControllers().AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<WriterValidator>();
                 fv.RegisterValidatorsFromAssemblyContaining<ContactValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<BLogValidator>();
             });
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,7 +133,7 @@ namespace CoreBlog.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Blog}/{action=Index}/{id?}");
+                    pattern: "{controller=Writer}/{action=WriterAdd}/{id?}");
             });
         }
     }

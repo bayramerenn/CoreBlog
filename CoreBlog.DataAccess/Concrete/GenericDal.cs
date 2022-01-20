@@ -45,5 +45,10 @@ namespace CoreBlog.DataAccess.Concrete
         {
             _dbSet.Update(entity);
         }
+
+        public async Task<TEntity> WhereAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await _dbSet.Where(filter).SingleOrDefaultAsync();
+        }
     }
 }

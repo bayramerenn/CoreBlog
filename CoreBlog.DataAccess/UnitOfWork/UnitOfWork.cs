@@ -25,6 +25,9 @@ namespace CoreBlog.DataAccess.UnitOfWork
         private ContactDal _contactDal;
         private WriterDal _writerDal;
         private NewsLetterDal _newsLetterDal;
+        private NotificationDal _notificationDal;
+        private MessageDal _messageDal;
+        private Message2Dal _message2Dal;
 
         public IAboutDal About => _aboutDal = _aboutDal ?? new AboutDal(_appDbContext);
 
@@ -38,7 +41,12 @@ namespace CoreBlog.DataAccess.UnitOfWork
 
         public IWriterDal Writer => _writerDal = _writerDal ?? new WriterDal(_appDbContext);
 
-        public INewsLetterDal NewsLetterDal => _newsLetterDal = _newsLetterDal ?? new NewsLetterDal(_appDbContext);
+        public INewsLetterDal NewsLetter => _newsLetterDal = _newsLetterDal ?? new NewsLetterDal(_appDbContext);
+
+        public INotificationDal Notification => _notificationDal = _notificationDal ?? new NotificationDal(_appDbContext);
+
+        public IMessageDal Message => _messageDal = _messageDal ?? new MessageDal(_appDbContext);
+        public IMessage2Dal Message2 => _message2Dal = _message2Dal ?? new Message2Dal(_appDbContext);
 
         public void Commit()
         {

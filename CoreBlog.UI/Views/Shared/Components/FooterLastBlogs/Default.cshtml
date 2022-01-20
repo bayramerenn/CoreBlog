@@ -4,14 +4,14 @@
 {
     <div class="blog-grids row mb-3">
         <div class="col-md-5 blog-grid-left">
-            <a href="~/web/single.html">
+            <a href="/Blog/BlogDetails/@item.BlogID">
                 <img src="@item.BlogImage" class="card-img-top img-fluid" alt="">
             </a>
         </div>
         <div class="col-md-7 blog-grid-right">
 
             <h5>
-                <a href="~/web/single.html">@item.BlogTitle </a>
+                <a href="/Blog/BlogDetails/@item.BlogID">@item.BlogContent.Substring(0,item.BlogContent.LastIndexOf(" ",50)) </a>
             </h5>
             <div class="sub-meta">
                 <span>

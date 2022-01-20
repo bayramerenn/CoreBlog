@@ -1,0 +1,61 @@
+﻿@model BlogDto
+@{
+    ViewData["Title"] = "EditBlog";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+<h1>Blog Güncelle</h1>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="EditBlog">
+            <input type="hidden" asp-for="BlogID" />
+            <input type="hidden" asp-for="WriterID" />
+            <input type="hidden" asp-for="BlogCreatedDate" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="BlogTitle" class="control-label">Blog Başlığı</label>
+                <input asp-for="BlogTitle" class="form-control" />
+                <span asp-validation-for="BlogTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogImage" class="control-label">Blog Göreseli</label>
+                <input asp-for="BlogImage" class="form-control" />
+                <span asp-validation-for="BlogImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogThumbnailImage" class="control-label">Blog Küçük Görseli</label>
+                <input asp-for="BlogThumbnailImage" class="form-control" />
+                <span asp-validation-for="BlogThumbnailImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="CategoryID" class="control-label">Kategori</label>*@
+
+                <select asp-for="CategoryID" asp-items="@Model.Category" class="form-control">
+                    <option value="0">Lütfen bir kategori seçiniz</option>
+                </select>
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogContent" class="control-label">Blog İçeriği</label>
+                <textarea asp-for="BlogContent" class="form-control" rows="15"></textarea>
+                <span asp-validation-for="BlogContent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BlogStatus" /> Pasif Durumu
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

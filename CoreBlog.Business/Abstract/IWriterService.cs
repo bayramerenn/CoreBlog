@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CoreBlog.Business.Abstract
 {
-    public interface IWriterService
+    public interface IWriterService:IGenericService<Writer>
     {
-        Task InsertAsync(Writer writer);
-        Task<Writer> WhereAsync(Expression<Func<Writer, bool>> filter = null);
+        //Task InsertAsync(Writer writer);
+        //Task<Writer> WhereAsync(Expression<Func<Writer, bool>> filter = null);
     }
 }

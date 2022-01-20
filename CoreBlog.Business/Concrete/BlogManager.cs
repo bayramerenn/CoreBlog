@@ -61,5 +61,10 @@ namespace CoreBlog.Business.Concrete
             _unitOfWork.Blog.Update(blog);
             _unitOfWork.Commit();
         }
+
+        public async Task<Blog> WhereAsync(Expression<Func<Blog, bool>> filter)
+        {
+            return await _unitOfWork.Blog.WhereAsync(filter);
+        }
     }
 }

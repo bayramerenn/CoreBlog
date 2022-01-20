@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Blog>
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Yazarın Blokları</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th> # </th>
+                    <th> Blok Başlığı</th>
+                    <th> Oluşturma Tarihi </th>
+                    <th> Kategori</th>
+                    <th> Durum </th>
+                    <th> Sil </th>
+                    <th> Düzenle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td> @item.BlogID </td>
+                    <td> @item.BlogTitle </td>
+                    <td>
+                        @item.BlogCreatedDate.ToString("dd-MMM-yyyy")
+                    </td>
+                    <td> @item.Category.CategoryName </td>
+                    @if (item.BlogStatus)
+                    {
+                        <td>
+                            <span class="badge badge-success">Aktif</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span class="badge badge-danger">Pasif</span>
+                        </td>
+                    }
+
+
+
+                    <td> <a href="/Blog/BlogDelete/@item.BlogID" class="btn btn-danger">Sil</a> </td>
+                    <td> <a href="/Blog/EditBlog/@item.BlogID" class="btn btn-warning">Düzenle</a> </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <a href="/Blog/BlogAdd/" class="btn btn-primary">Yeni Blog Oluştur</a>
+</div>

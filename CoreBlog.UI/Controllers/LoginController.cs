@@ -34,15 +34,23 @@ namespace CoreBlog.UI.Controllers
             {
                 var claims = new List<Claim>
                {
-                   new Claim(ClaimTypes.Name,writer.WriterMail)
+                   new Claim(ClaimTypes.Email,result.WriterMail),
+                   new Claim(ClaimTypes.NameIdentifier,result.WriterID.ToString()),
+                   new Claim(ClaimTypes.Name,result.WriterName)
                };
                 var userIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(principal);
-                return RedirectToAction("Index", "Writer");
+                return RedirectToAction("Index", "Dashboard");
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index");
         }
     }
 }

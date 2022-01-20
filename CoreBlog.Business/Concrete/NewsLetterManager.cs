@@ -20,7 +20,7 @@ namespace CoreBlog.Business.Concrete
 
         public async Task InsertAsync(NewsLetter newsLetter)
         {
-            await _unitOfWork.NewsLetterDal.InsertAsync(newsLetter);
+            await _unitOfWork.NewsLetter.InsertAsync(newsLetter);
             await _unitOfWork.CommitAsync();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using CoreBlog.DataAccess.Abstract;
 using CoreBlog.DataAccess.Context;
+using CoreBlog.DataAccess.Extensions;
 using CoreBlog.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace CoreBlog.DataAccess.Concrete
 {
@@ -35,7 +38,13 @@ namespace CoreBlog.DataAccess.Concrete
 
         public async Task<IList<Blog>> GetLastBlogListAsync(int id)
         {
-            return await appDbContext.Blogs.OrderByDescending(o => o.BlogCreatedDate).Take(id).ToListAsync();
+
+            var result = await appDbContext.Blogs.Include(x => x.Category).OrderByDescending(o => o.BlogCreatedDate).Take(id).ToListAsync();
+            return result;
+
+
         }
+
+
     }
 }

@@ -1,0 +1,25 @@
+﻿@model Message2
+@{
+    ViewData["Title"] = "MessageDetails";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="label-control" asp-for="MessageID">Mesaj Id</label>
+            <input asp-for="MessageID" class="form-control" style="background-color: #ffffff" disabled />
+        </div>
+        <div class="form-group">
+            <label class="label-control" asp-for="Subject">Mesaj Başlığı</label>
+            <input asp-for="Subject" class="form-control" style="background-color: #ffffff" disabled />
+        </div>
+        <div class="form-group">
+            <label class="label-control" asp-for="MessageDetails">Mesaj İçeriği</label>
+            <textarea asp-for="MessageDetails" class="form-control" style="background-color: #ffffff" disabled rows="15">
+            </textarea>
+        </div>
+    </div>
+</div>
+
+<a href="/Message/" class="btn btn-info">Mesajlara Dön</a>

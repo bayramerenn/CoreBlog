@@ -15,7 +15,10 @@ namespace CoreBlog.DataAccess.UnitOfWork
         ICategoryDal Category { get; }
         IContactDal Contact { get; }
         IWriterDal Writer { get; }
-        INewsLetterDal NewsLetterDal { get; }
+        INewsLetterDal NewsLetter { get; }
+        INotificationDal Notification { get; }  
+        IMessageDal Message { get; }  
+        IMessage2Dal Message2 { get; }  
 
         Task CommitAsync();
         void Commit();

@@ -1,6 +1,10 @@
 ﻿
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
-<h1>writer</h1>
+<p>@User.Identity.Name</p>
+<p>@ViewBag.Id</p>
+<p>@ViewBag.Email</p>
+

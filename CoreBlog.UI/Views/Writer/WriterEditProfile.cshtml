@@ -1,0 +1,83 @@
+﻿@model WriterDto
+
+@{
+    ViewData["Title"] = "WriterEditProfile";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title" Yazar Profil Bilgilerini Güncelle</h4>
+            @*<p class="card-description"> Basic form elements </p>*@
+
+        <form asp-action="WriterEditProfile" class="forms-sample">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="WriterID" type="hidden" />
+
+
+            <div class="form-group">
+                <label asp-for="WriterName" class="control-label">Yazar Ad Soyad</label>
+                <input asp-for="WriterName" class="form-control" />
+                <span asp-validation-for="WriterName" class="text-danger"></span>
+            </div>
+
+    
+            <div class="form-group">
+                <label asp-for="WriterMail" class="control-label">Mail Adresi</label>
+                <input asp-for="WriterMail" class="form-control" />
+                <span asp-validation-for="WriterMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterPassword" class="control-label">Şifre</label>
+                <input type="password" asp-for="WriterPassword" class="form-control" value="@Model.WriterPassword" />
+
+
+                <span asp-validation-for="WriterPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="WriterConfirmPassword" class="control-label">Tekrar Şifre Giriniz</label>
+                <input type="password" asp-for="WriterConfirmPassword" class="form-control" value="@Model.WriterPassword" />
+
+
+                <span asp-validation-for="WriterConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword4">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WriterStatus" /> Durum
+                </label>
+            </div>
+
+
+            <div class="form-group">
+                <label>Yazar Görsel</label>
+        
+                <input type="file" asp-for="WriterImage" class="file-upload-default">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" value="@ViewBag.WriterImage">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-gradient-primary" type="button">Resim Seç</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterAbout" class="control-label">Yazar Hakkında</label>
+
+                <textarea class="form-control" asp-for="WriterAbout" rows="15"></textarea>
+                <span asp-validation-for="WriterAbout" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-gradient-primary mr-2">Kaydet</button>
+            <button class="btn btn-light">Vazgeç</button>
+        </form>
+        </div>
+    </div>
+</div>

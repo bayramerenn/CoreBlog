@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Notification>
+@{
+    ViewData["Title"] = "AllNotification";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Bildirimlerim</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> Bildirim </th>
+                                <th> Tarih </th>
+                             
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                       @item.NotificationID
+                                    </td>
+                                    <td>
+                                        @item.NotificationDetails
+                                    </td>
+
+                                    <td>
+                                        @Math.Ceiling((DateTime.Now - item.NotificationDate).TotalHours) saat önce
+                                    </td>
+                                   
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -14,6 +14,7 @@ namespace CoreBlog.DataAccess.Abstract
         void Delete(TEntity entity);
         Task<IEnumerable<TEntity>> GetListAllAsync(Expression<Func<TEntity, bool>> filter = null);
         Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> WhereAsync(Expression<Func<TEntity, bool>> filter);
     }
 
 
